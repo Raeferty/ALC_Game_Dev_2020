@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     public bool isOnGround = true;
     public bool gameOver;
     
-    
     // Start is called before the first frame update
     void Start()
     {
