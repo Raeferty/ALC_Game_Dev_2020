@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerControllerX : MonoBehaviour
 {
     public bool gameOver;
-    public bool isLowEnough;
+    public bool isTooHigh;
+    
 
     public float floatForce;
     private float gravityModifier = 1.5f;
@@ -35,9 +36,21 @@ public class PlayerControllerX : MonoBehaviour
     void Update()
     {
         // While space is pressed and player is low enough, float up
-        if (Input.GetKey(KeyCode.Space) && !gameOver && isLowEnough)
+        if (Input.GetKey(KeyCode.Space) && !gameOver && !isTooHigh)
         {
             playerRb.AddForce(Vector3.up * floatForce);
+        }
+        else if (transform.position.y >= 13)
+        {
+            isTooHigh = true;
+        }
+        else if (transform.position.y < 13)
+        {
+            isTooHigh = false;
+        }
+        else if (transform.position.y < 2)
+        {
+            playerRb.AddForce(Vector3.up * 5);
         }
     }
 
@@ -51,7 +64,7 @@ public class PlayerControllerX : MonoBehaviour
             gameOver = true;
             Debug.Log("Game Over!");
             Destroy(other.gameObject);
-        } 
+        }
 
         // if player collides with money, fireworks
         else if (other.gameObject.CompareTag("Money"))
@@ -62,6 +75,7 @@ public class PlayerControllerX : MonoBehaviour
 
         }
 
+   
     }
 
 }
